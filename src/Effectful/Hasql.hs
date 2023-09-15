@@ -29,3 +29,9 @@ runHasqlIO = interpret $ \_ -> \case
     pool <- ask @Pool
     r <- liftIO $ use pool session
     either throwError pure r
+
+run :: Pool -> Eff [Hasql, Reader Pool, Error UsageError, IOE] a -> IO (Either (CallStack, UsageError) a)
+run pool = runEff . runError @UsageError . runReader pool . runHasqlIO
+
+runWithErrorHandler :: Pool -> (CallStack -> UsageError -> Eff '[IOE] a) -> Eff [Hasql, Reader Pool, Error UsageError, IOE] a -> IO a
+runWithErrorHandler pool errHandler = runEff . runErrorWith @UsageError errHandler . runReader pool . runHasqlIO
