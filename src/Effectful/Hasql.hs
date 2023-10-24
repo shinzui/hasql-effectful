@@ -1,4 +1,13 @@
-module Effectful.Hasql where
+module Effectful.Hasql
+  ( -- * Effect
+    Hasql (..),
+    runSession,
+
+    -- * Handlers
+    runHasqlIO,
+    runWithPool,
+  )
+where
 
 import Effectful
 import Effectful.Dispatch.Dynamic
@@ -28,5 +37,5 @@ runHasqlIO pool = interpret $ \env -> \case
     localSeqUnlift env $ \unlift -> unlift $ do
       either throwError pure r
 
-run :: Pool -> Eff [Hasql, Error UsageError, IOE] a -> IO (Either (CallStack, UsageError) a)
-run pool = runEff . runError @UsageError . runHasqlIO pool
+runWithPool :: Pool -> Eff [Hasql, Error UsageError, IOE] a -> IO (Either (CallStack, UsageError) a)
+runWithPool pool = runEff . runError @UsageError . runHasqlIO pool
