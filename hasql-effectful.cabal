@@ -27,7 +27,7 @@ library
   build-depends:
     , base        ^>=4.17   && <5
     , effectful   >=1.3.0.0 && <3.0.0.0
-    , hasql       ^>=1.6  && < 2
+    , hasql       ^>=1.6    && <2
     , hasql-pool  ^>=0.10
 
   hs-source-dirs:   src
@@ -39,13 +39,13 @@ executable hasql-effectful-example
   main-is:          Main.hs
   build-depends:
     , base               ^>=4.17
-    , bytestring
-    , effectful
-    , hasql
+    , bytestring         ^>=0.11.5
+    , effectful          ^>=2.3.0
+    , hasql              ^>=1.6
     , hasql-effectful
-    , hasql-pool
-    , hasql-transaction
-    , text
+    , hasql-pool         ^>=0.10.0
+    , hasql-transaction  ^>=1.0.1
+    , text               ^>=2.0
 
   hs-source-dirs:   examples
   default-language: GHC2021
