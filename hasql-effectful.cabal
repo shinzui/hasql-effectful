@@ -9,47 +9,48 @@ license:         MIT
 license-file:    LICENSE
 author:          Nadeem Bitar
 maintainer:      nadeem@gmail.com
-
 build-type:      Simple
 extra-doc-files: CHANGELOG.md
 
 common common
-  ghc-options: -Wall
+  ghc-options:        -Wall
   default-extensions:
-    DerivingStrategies
     DataKinds
+    DerivingStrategies
     LambdaCase
     TypeFamilies
 
 library
-  import:             common
-  exposed-modules:    Effectful.Hasql
+  import:           common
+  exposed-modules:  Effectful.Hasql
 
   -- other-modules:
   -- other-extensions:
   build-depends:
-    , base       ^>=4.17
-    , effectful  
-    , hasql      ^>=1.6
-    , hasql-pool ^>= 0.10
+    , base        ^>=4.17
+    , effectful
+    , hasql       ^>=1.6
+    , hasql-pool  ^>=0.10
 
-  hs-source-dirs:     src
-  default-language:   GHC2021
+  hs-source-dirs:   src
+  default-language: GHC2021
 
 executable hasql-effectful-example
   import:           common
+  ghc-options:      -threaded -rtsopts -with-rtsopts=-N
   main-is:          Main.hs
 
   -- other-modules:
   -- other-extensions:
   build-depends:
-    , base             ^>=4.17
-    , hasql-effectful
+    , base               ^>=4.17
+    , bytestring
+    , effectful
     , hasql
+    , hasql-effectful
     , hasql-pool
     , hasql-transaction
     , text
-    , effectful
 
   hs-source-dirs:   examples
   default-language: GHC2021
